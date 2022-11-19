@@ -1,4 +1,5 @@
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 public class BattleShip {
 
@@ -6,11 +7,11 @@ public class BattleShip {
 
 	public void play() {
 
-		aircraftCarierPlacerLogic();
-		battleshipPlacerLogic();
-		submarinePlacerLogic();
+		// aircraftCarierPlacerLogic();
+		// battleshipPlacerLogic();
+		// submarinePlacerLogic();
 		destroyerPlacerLogic();
-		patrolBoatPlacerLogic();
+		// patrolBoatPlacerLogic();
 
 	}
 
@@ -64,9 +65,10 @@ public class BattleShip {
 
 		for (int i = 0; i < 1; i++) {
 			boolean ifVerticalRow = ifVerticalRow();
-			if (ifVerticalRow == true) {// the ship is alligned vertically
 
+			if (ifVerticalRow == true) {// the ship is alligned vertically
 				boolean verticalAllignedUp = verticalIfAllignedUp();
+
 				if (verticalAllignedUp == true) {// the ship is alligned going up
 					startSquare = RandomNumGenerator();
 					startRow = RandomNumGenerator();
@@ -135,7 +137,7 @@ public class BattleShip {
 					startSquare = RandomNumGenerator();
 					startRow = RandomNumGenerator();
 
-					while (startSquare + aircCarierLength < 10) {// to validate the ship does not overlap the borders on
+					while (startSquare + aircCarierLength > 10) {// to validate the ship does not overlap the borders on
 																	// the right
 						startSquare = RandomNumGenerator();
 					}
@@ -161,21 +163,35 @@ public class BattleShip {
 
 		for (int i = 0; i < 1; i++) {
 			boolean ifVerticalRow = ifVerticalRow();
-			if (ifVerticalRow == true) {// the ship is alligned vertically
 
+			if (ifVerticalRow == true) {// the ship is alligned vertically
 				boolean verticalAllignedUp = verticalIfAllignedUp();
+
 				if (verticalAllignedUp == true) {// the ship is alligned going up
 					startSquare = RandomNumGenerator();
-					startRow = RandomNumGenerator();
+					startRow = RandomNumGenerator();									
 
-					while (startRow - battleshipLength < 0) {// to validate the ship does not overlap the borders on the
-																// top
+					while (startRow - battleshipLength < 0) {// to validate the ship does not on the top																			// overlap the borders on the
+				
+						startSquare = RandomNumGenerator();
 						startRow = RandomNumGenerator();
 					}
-					row2 = startRow - 1;
+
+					row2 = startRow - 1;					
 					row3 = startRow - 2;
 					row4 = startRow - 3;
 
+					boolean thereIsAShipOnStart = this.theGrid.isThereAShip(startRow, startSquare);
+					boolean thereIsAShipOnRow2 = this.theGrid.isThereAShip(row2, startSquare);
+					boolean thereIsAShipOnRow3 = this.theGrid.isThereAShip(row3, startSquare);
+					boolean thereIsAShipOnRow4 = this.theGrid.isThereAShip(row4, startSquare);
+					
+					while (thereIsAShipOnStart==true && thereIsAShipOnRow2==true && thereIsAShipOnRow3==true &&thereIsAShipOnRow4==true){
+						startSquare = RandomNumGenerator();
+						startRow = RandomNumGenerator();
+					}
+
+					
 					this.theGrid.addShipToGrid(ship2, startRow, startSquare);
 					this.theGrid.addShipToGrid(ship2, row2, startSquare);
 					this.theGrid.addShipToGrid(ship2, row3, startSquare);
@@ -225,7 +241,7 @@ public class BattleShip {
 					startSquare = RandomNumGenerator();
 					startRow = RandomNumGenerator();
 
-					while (startSquare + battleshipLength < 10) {// to validate the ship does not overlap the borders on
+					while (startSquare + battleshipLength > 10) {// to validate the ship does not overlap the borders on
 																	// the right
 						startSquare = RandomNumGenerator();
 					}
@@ -249,9 +265,10 @@ public class BattleShip {
 
 		for (int i = 0; i < 1; i++) {
 			boolean ifVerticalRow = ifVerticalRow();
-			if (ifVerticalRow == true) {// the ship is alligned vertically
 
+			if (ifVerticalRow == true) {// the ship is alligned vertically
 				boolean verticalAllignedUp = verticalIfAllignedUp();
+
 				if (verticalAllignedUp == true) {// the ship is alligned going up
 					startSquare = RandomNumGenerator();
 					startRow = RandomNumGenerator();
@@ -307,7 +324,7 @@ public class BattleShip {
 					startSquare = RandomNumGenerator();
 					startRow = RandomNumGenerator();
 
-					while (startSquare + submarineLength < 10) {// to validate the ship does not overlap the borders on
+					while (startSquare + submarineLength > 10) {// to validate the ship does not overlap the borders on
 																// the right
 						startSquare = RandomNumGenerator();
 					}
@@ -326,12 +343,14 @@ public class BattleShip {
 		Ship ship4 = new Ship(2, 8, "Destroyer");
 		int startRow, row2, startSquare, square2;
 		int destroyerLength = 2;
+		String output;
 
 		for (int i = 0; i < 1; i++) {
 			boolean ifVerticalRow = ifVerticalRow();
-			if (ifVerticalRow == true) {// the ship is alligned vertically
 
+			if (ifVerticalRow == true) {// the ship is alligned vertically
 				boolean verticalAllignedUp = verticalIfAllignedUp();
+
 				if (verticalAllignedUp == true) {// the ship is alligned going up
 					startSquare = RandomNumGenerator();
 					startRow = RandomNumGenerator();
@@ -341,6 +360,10 @@ public class BattleShip {
 						startRow = RandomNumGenerator();
 					}
 					row2 = startRow - 1;
+
+					output = "ship4" + "(" + startRow + "," + startSquare + ")" + "ship4" + "(" + row2 + ","
+							+ startSquare + ")";
+					JOptionPane.showMessageDialog(null, output);
 
 					this.theGrid.addShipToGrid(ship4, startRow, startSquare);
 					this.theGrid.addShipToGrid(ship4, row2, startSquare);
@@ -355,6 +378,10 @@ public class BattleShip {
 						startRow = RandomNumGenerator();
 					}
 					row2 = startRow + 1;
+
+					output = "ship4" + "(" + startRow + "," + startSquare + ")" + "ship4" + "(" + row2 + ","
+							+ startSquare + ")";
+					JOptionPane.showMessageDialog(null, output);
 
 					this.theGrid.addShipToGrid(ship4, startRow, startSquare);
 					this.theGrid.addShipToGrid(ship4, row2, startSquare);
@@ -373,6 +400,10 @@ public class BattleShip {
 					}
 					square2 = startSquare - 1;
 
+					output = "ship4" + "(" + startRow + "," + startSquare + ")" + "ship4" + "(" + startRow + ","
+							+ square2 + ")";
+					JOptionPane.showMessageDialog(null, output);
+
 					this.theGrid.addShipToGrid(ship4, startRow, startSquare);
 					this.theGrid.addShipToGrid(ship4, startRow, square2);
 				}
@@ -381,11 +412,15 @@ public class BattleShip {
 					startSquare = RandomNumGenerator();
 					startRow = RandomNumGenerator();
 
-					while (startSquare + destroyerLength < 10) {// to validate the ship does not overlap the borders on
+					while (startSquare + destroyerLength > 10) {// to validate the ship does not overlap the borders on
 																// the right
 						startSquare = RandomNumGenerator();
 					}
 					square2 = startSquare + 1;
+
+					output = "ship4" + "(" + startRow + "," + startSquare + ")" + "ship4" + "(" + startRow + ","
+							+ square2 + ")";
+					JOptionPane.showMessageDialog(null, output);
 
 					this.theGrid.addShipToGrid(ship4, startRow, startSquare);
 					this.theGrid.addShipToGrid(ship4, startRow, square2);
@@ -400,9 +435,10 @@ public class BattleShip {
 
 		for (int i = 0; i < 1; i++) {
 			boolean ifVerticalRow = ifVerticalRow();
-			if (ifVerticalRow == true) {// the ship is alligned vertically
 
+			if (ifVerticalRow == true) {// the ship is alligned vertically
 				boolean verticalAllignedUp = verticalIfAllignedUp();
+
 				if (verticalAllignedUp == true) {// the ship is alligned going up
 					startSquare = RandomNumGenerator();
 					startRow = RandomNumGenerator();

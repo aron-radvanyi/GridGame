@@ -3,7 +3,7 @@ public class DemoBattleShip {
         BattleShip bs = new BattleShip();
 		
 		bs.play();
-        bs.battleshipPrinter();
+        
         
 
         
