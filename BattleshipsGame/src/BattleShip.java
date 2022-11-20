@@ -116,8 +116,8 @@ public class BattleShip {
 					this.theGrid.addShipToGrid(ship1, row5, startSquare);
 
 					textForDebug = textForDebug + "\nAircraft Carrier" + "(" + startRow + "," + startSquare + ")" + "," + "(" + row2 + ","
-							+ startSquare + ")" + ",(" + row3 + "," + startSquare + ")," + ",(" + row4 + ","
-							+ startSquare + ")," + ",(" + row5 + "," + startSquare + ")";
+							+ startSquare + ")" + ",(" + row3 + "," + startSquare + ")," + "(" + row4 + ","
+							+ startSquare + ")," + "(" + row5 + "," + startSquare + ")";
 				}
 			}
 			if (ifVerticalRow == false) {// if not vertical, the ship is alligned horizontally
@@ -143,8 +143,8 @@ public class BattleShip {
 					this.theGrid.addShipToGrid(ship1, startRow, square5);
 
 					textForDebug = textForDebug + "\nAircraft Carrier" + "(" + startRow + "," + startSquare + ")" + "," + "(" + startRow + ","
-							+ square2 + ")" + ",(" + startRow + "," + square3 + ")," + ",(" + startRow + "," + square4
-							+ ")," + ",(" + startRow + "," + square5 + ")";
+							+ square2 + ")" + ",(" + startRow + "," + square3 + ")," + "(" + startRow + "," + square4
+							+ ")," + "(" + startRow + "," + square5 + ")";
 				}
 
 				if (horizontalIfAllignedLeft == false) {// the ship is alligned going right
@@ -167,8 +167,8 @@ public class BattleShip {
 					this.theGrid.addShipToGrid(ship1, startRow, square5);
 
 					textForDebug = textForDebug + "\nAircraft Carrier" + "(" + startRow + "," + startSquare + ")" + "," + "(" + startRow + ","
-							+ square2 + ")" + ",(" + startRow + "," + square3 + ")," + ",(" + startRow + "," + square4
-							+ ")," + ",(" + startRow + "," + square5 + ")";
+							+ square2 + ")" + ",(" + startRow + "," + square3 + ")," + "(" + startRow + "," + square4
+							+ ")," + "(" + startRow + "," + square5 + ")";
 				}
 			}
 		} // end of for loop
@@ -215,7 +215,7 @@ public class BattleShip {
 					this.theGrid.addShipToGrid(ship2, row4, startSquare);
 
 					textForDebug = textForDebug + "\nBattleship" + "(" + startRow + "," + startSquare + ")" + "," + "(" + row2 + ","
-							+ startSquare + ")" + ",(" + row3 + "," + startSquare + ")," + ",(" + row4 + ","
+							+ startSquare + ")" + ",(" + row3 + "," + startSquare + ")," + "(" + row4 + ","
 							+ startSquare + ")";					
 				}
 
@@ -248,7 +248,7 @@ public class BattleShip {
 					this.theGrid.addShipToGrid(ship2, row4, startSquare);
 
 					textForDebug = textForDebug + "\nBattleship" + "(" + startRow + "," + startSquare + ")" + "," + "(" + row2 + ","
-							+ startSquare + ")" + ",(" + row3 + "," + startSquare + ")," + ",(" + row4 + ","
+							+ startSquare + ")" + ",(" + row3 + "," + startSquare + ")," + "(" + row4 + ","
 							+ startSquare + ")";					
 				}
 			}
@@ -284,7 +284,7 @@ public class BattleShip {
 					this.theGrid.addShipToGrid(ship2, startRow, square4);
 
 					textForDebug = textForDebug + "\nBattleship" + "(" + startRow + "," + startSquare + ")" + "," + "(" + startRow + ","
-							+ square2 + ")" + ",(" + startRow + "," + square3 + ")," + ",(" + startRow + ","
+							+ square2 + ")" + ",(" + startRow + "," + square3 + ")," + "(" + startRow + ","
 							+ square4 + ")";
 				}
 
@@ -317,7 +317,7 @@ public class BattleShip {
 					this.theGrid.addShipToGrid(ship2, startRow, square4);
 
 					textForDebug = textForDebug + "\nBattleship" + "(" + startRow + "," + startSquare + ")" + "," + "(" + startRow + ","
-							+ square2 + ")" + ",(" + startRow + "," + square3 + ")," + ",(" + startRow + ","
+							+ square2 + ")" + ",(" + startRow + "," + square3 + ")," + "(" + startRow + ","
 							+ square4 + ")";
 				}
 			}
