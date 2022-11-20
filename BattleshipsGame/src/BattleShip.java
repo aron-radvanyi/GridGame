@@ -1,18 +1,21 @@
 import java.util.Random;
-import javax.swing.JOptionPane;
+
 
 public class BattleShip {
 
 	private Grid theGrid = new Grid();
 
-	public void play() {
+	private String textForDebug = "Here are the ships:";
 
-		// aircraftCarierPlacerLogic();
-		// battleshipPlacerLogic();
-		// submarinePlacerLogic();
+	public void shipPlacer() {		
+
+		aircraftCarierPlacerLogic();
+		battleshipPlacerLogic();		
+		submarinePlacerLogic();
 		destroyerPlacerLogic();
-		// patrolBoatPlacerLogic();
-
+		patrolBoatPlacerLogic();
+		textForDebugPrinter(textForDebug);
+						
 	}
 
 	// method to declare random number
@@ -61,7 +64,7 @@ public class BattleShip {
 
 		Ship ship1 = new Ship(5, 2, "Aircraft Carrier");
 		int startRow, startSquare, row2, row3, row4, row5, square2, square3, square4, square5;
-		int aircCarierLength = 5;
+		int aircCarierLength = 5;		
 
 		for (int i = 0; i < 1; i++) {
 			boolean ifVerticalRow = ifVerticalRow();
@@ -88,6 +91,9 @@ public class BattleShip {
 					this.theGrid.addShipToGrid(ship1, row4, startSquare);
 					this.theGrid.addShipToGrid(ship1, row5, startSquare);
 
+					textForDebug = textForDebug + "\nAircraft Carrier" + "(" + startRow + "," + startSquare + ")" + "," + "(" + row2 + ","
+							+ startSquare + ")" + ",(" + row3 + "," + startSquare + ")," + "(" + row4 + ","
+							+ startSquare + ")," + "(" + row5 + "," + startSquare + ")";
 				}
 
 				if (verticalAllignedUp == false) {// the ship is alligned going down
@@ -108,6 +114,10 @@ public class BattleShip {
 					this.theGrid.addShipToGrid(ship1, row3, startSquare);
 					this.theGrid.addShipToGrid(ship1, row4, startSquare);
 					this.theGrid.addShipToGrid(ship1, row5, startSquare);
+
+					textForDebug = textForDebug + "\nAircraft Carrier" + "(" + startRow + "," + startSquare + ")" + "," + "(" + row2 + ","
+							+ startSquare + ")" + ",(" + row3 + "," + startSquare + ")," + ",(" + row4 + ","
+							+ startSquare + ")," + ",(" + row5 + "," + startSquare + ")";
 				}
 			}
 			if (ifVerticalRow == false) {// if not vertical, the ship is alligned horizontally
@@ -131,6 +141,10 @@ public class BattleShip {
 					this.theGrid.addShipToGrid(ship1, startRow, square3);
 					this.theGrid.addShipToGrid(ship1, startRow, square4);
 					this.theGrid.addShipToGrid(ship1, startRow, square5);
+
+					textForDebug = textForDebug + "\nAircraft Carrier" + "(" + startRow + "," + startSquare + ")" + "," + "(" + startRow + ","
+							+ square2 + ")" + ",(" + startRow + "," + square3 + ")," + ",(" + startRow + "," + square4
+							+ ")," + ",(" + startRow + "," + square5 + ")";
 				}
 
 				if (horizontalIfAllignedLeft == false) {// the ship is alligned going right
@@ -151,6 +165,10 @@ public class BattleShip {
 					this.theGrid.addShipToGrid(ship1, startRow, square3);
 					this.theGrid.addShipToGrid(ship1, startRow, square4);
 					this.theGrid.addShipToGrid(ship1, startRow, square5);
+
+					textForDebug = textForDebug + "\nAircraft Carrier" + "(" + startRow + "," + startSquare + ")" + "," + "(" + startRow + ","
+							+ square2 + ")" + ",(" + startRow + "," + square3 + ")," + ",(" + startRow + "," + square4
+							+ ")," + ",(" + startRow + "," + square5 + ")";
 				}
 			}
 		} // end of for loop
@@ -159,7 +177,7 @@ public class BattleShip {
 	public void battleshipPlacerLogic() {// the logic to place Battleship to the grid
 		Ship ship2 = new Ship(4, 4, "Battleship");
 		int startRow, row2, row3, row4, startSquare, square2, square3, square4;
-		int battleshipLength = 4;
+		int battleshipLength = 4;		
 
 		for (int i = 0; i < 1; i++) {
 			boolean ifVerticalRow = ifVerticalRow();
@@ -169,15 +187,14 @@ public class BattleShip {
 
 				if (verticalAllignedUp == true) {// the ship is alligned going up
 					startSquare = RandomNumGenerator();
-					startRow = RandomNumGenerator();									
+					startRow = RandomNumGenerator();
 
-					while (startRow - battleshipLength < 0) {// to validate the ship does not on the top																			// overlap the borders on the
-				
-						startSquare = RandomNumGenerator();
+					while (startRow - battleshipLength < 0) {// to validate the ship does not on the top // overlap the
+																// borders on the						
 						startRow = RandomNumGenerator();
 					}
 
-					row2 = startRow - 1;					
+					row2 = startRow - 1;
 					row3 = startRow - 2;
 					row4 = startRow - 3;
 
@@ -185,17 +202,21 @@ public class BattleShip {
 					boolean thereIsAShipOnRow2 = this.theGrid.isThereAShip(row2, startSquare);
 					boolean thereIsAShipOnRow3 = this.theGrid.isThereAShip(row3, startSquare);
 					boolean thereIsAShipOnRow4 = this.theGrid.isThereAShip(row4, startSquare);
-					
-					while (thereIsAShipOnStart==true && thereIsAShipOnRow2==true && thereIsAShipOnRow3==true &&thereIsAShipOnRow4==true){
+
+					while (thereIsAShipOnStart == true || thereIsAShipOnRow2 == true || thereIsAShipOnRow3 == true
+					|| thereIsAShipOnRow4 == true) {
 						startSquare = RandomNumGenerator();
 						startRow = RandomNumGenerator();
 					}
 
-					
 					this.theGrid.addShipToGrid(ship2, startRow, startSquare);
 					this.theGrid.addShipToGrid(ship2, row2, startSquare);
 					this.theGrid.addShipToGrid(ship2, row3, startSquare);
 					this.theGrid.addShipToGrid(ship2, row4, startSquare);
+
+					textForDebug = textForDebug + "\nBattleship" + "(" + startRow + "," + startSquare + ")" + "," + "(" + row2 + ","
+							+ startSquare + ")" + ",(" + row3 + "," + startSquare + ")," + ",(" + row4 + ","
+							+ startSquare + ")";					
 				}
 
 				if (verticalAllignedUp == false) {// the ship is alligned going down
@@ -210,10 +231,25 @@ public class BattleShip {
 					row3 = startRow + 2;
 					row4 = startRow + 3;
 
+					boolean thereIsAShipOnStart = this.theGrid.isThereAShip(startRow, startSquare);
+					boolean thereIsAShipOnRow2 = this.theGrid.isThereAShip(row2, startSquare);
+					boolean thereIsAShipOnRow3 = this.theGrid.isThereAShip(row3, startSquare);
+					boolean thereIsAShipOnRow4 = this.theGrid.isThereAShip(row4, startSquare);
+
+					while (thereIsAShipOnStart == true || thereIsAShipOnRow2 == true || thereIsAShipOnRow3 == true
+					|| thereIsAShipOnRow4 == true) {
+						startSquare = RandomNumGenerator();
+						startRow = RandomNumGenerator();
+					}
+
 					this.theGrid.addShipToGrid(ship2, startRow, startSquare);
 					this.theGrid.addShipToGrid(ship2, row2, startSquare);
 					this.theGrid.addShipToGrid(ship2, row3, startSquare);
 					this.theGrid.addShipToGrid(ship2, row4, startSquare);
+
+					textForDebug = textForDebug + "\nBattleship" + "(" + startRow + "," + startSquare + ")" + "," + "(" + row2 + ","
+							+ startSquare + ")" + ",(" + row3 + "," + startSquare + ")," + ",(" + row4 + ","
+							+ startSquare + ")";					
 				}
 			}
 			if (ifVerticalRow == false) {// if not vertical, the ship is alligned horizontally
@@ -231,10 +267,25 @@ public class BattleShip {
 					square3 = startSquare - 2;
 					square4 = startSquare - 3;
 
+					boolean thereIsAShipOnStart = this.theGrid.isThereAShip(startRow, startSquare);
+					boolean thereIsAShipOnSquare2 = this.theGrid.isThereAShip(startRow, square2);
+					boolean thereIsAShipOnSquare3 = this.theGrid.isThereAShip(startRow, square3);
+					boolean thereIsAShipOnSquare4 = this.theGrid.isThereAShip(startRow, square4);
+
+					while (thereIsAShipOnStart == true || thereIsAShipOnSquare2 == true || thereIsAShipOnSquare3 == true
+					|| thereIsAShipOnSquare4 == true) {
+						startSquare = RandomNumGenerator();
+						startRow = RandomNumGenerator();
+					}
+
 					this.theGrid.addShipToGrid(ship2, startRow, startSquare);
 					this.theGrid.addShipToGrid(ship2, startRow, square2);
 					this.theGrid.addShipToGrid(ship2, startRow, square3);
 					this.theGrid.addShipToGrid(ship2, startRow, square4);
+
+					textForDebug = textForDebug + "\nBattleship" + "(" + startRow + "," + startSquare + ")" + "," + "(" + startRow + ","
+							+ square2 + ")" + ",(" + startRow + "," + square3 + ")," + ",(" + startRow + ","
+							+ square4 + ")";
 				}
 
 				if (horizontalIfAllignedLeft == false) {// the ship is alligned going right
@@ -249,10 +300,25 @@ public class BattleShip {
 					square3 = startSquare + 2;
 					square4 = startSquare + 3;
 
+					boolean thereIsAShipOnStart = this.theGrid.isThereAShip(startRow, startSquare);
+					boolean thereIsAShipOnSquare2 = this.theGrid.isThereAShip(startRow, square2);
+					boolean thereIsAShipOnSquare3 = this.theGrid.isThereAShip(startRow, square3);
+					boolean thereIsAShipOnSquare4 = this.theGrid.isThereAShip(startRow, square4);
+
+					while (thereIsAShipOnStart == true || thereIsAShipOnSquare2 == true || thereIsAShipOnSquare3 == true
+					|| thereIsAShipOnSquare4 == true) {
+						startSquare = RandomNumGenerator();
+						startRow = RandomNumGenerator();
+					}
+
 					this.theGrid.addShipToGrid(ship2, startRow, startSquare);
 					this.theGrid.addShipToGrid(ship2, startRow, square2);
 					this.theGrid.addShipToGrid(ship2, startRow, square3);
 					this.theGrid.addShipToGrid(ship2, startRow, square4);
+
+					textForDebug = textForDebug + "\nBattleship" + "(" + startRow + "," + startSquare + ")" + "," + "(" + startRow + ","
+							+ square2 + ")" + ",(" + startRow + "," + square3 + ")," + ",(" + startRow + ","
+							+ square4 + ")";
 				}
 			}
 		} // end of for loop
@@ -261,7 +327,7 @@ public class BattleShip {
 	public void submarinePlacerLogic() {// the logic to place Submarine to the grid
 		Ship ship3 = new Ship(3, 6, "Submarine");
 		int startRow, row2, row3, startSquare, square2, square3;
-		int submarineLength = 3;
+		int submarineLength = 3;		
 
 		for (int i = 0; i < 1; i++) {
 			boolean ifVerticalRow = ifVerticalRow();
@@ -280,9 +346,22 @@ public class BattleShip {
 					row2 = startRow - 1;
 					row3 = startRow - 2;
 
+					boolean thereIsAShipOnStart = this.theGrid.isThereAShip(startRow, startSquare);
+					boolean thereIsAShipOnRow2 = this.theGrid.isThereAShip(row2, startSquare);
+					boolean thereIsAShipOnRow3 = this.theGrid.isThereAShip(row3, startSquare);
+
+					while (thereIsAShipOnStart == true || thereIsAShipOnRow2 == true || thereIsAShipOnRow3 == true) {
+						startSquare = RandomNumGenerator();
+						startRow = RandomNumGenerator();
+					}
+
 					this.theGrid.addShipToGrid(ship3, startRow, startSquare);
 					this.theGrid.addShipToGrid(ship3, row2, startSquare);
 					this.theGrid.addShipToGrid(ship3, row3, startSquare);
+
+					textForDebug = textForDebug + "\nSubmarine" + "(" + startRow + "," + startSquare + ")" + "," + "(" + row2 + ","
+							+ startSquare + ")" + ",(" + row3 + "," + startSquare + ")";
+					
 				}
 
 				if (verticalAllignedUp == false) {// the ship is alligned going down
@@ -296,9 +375,21 @@ public class BattleShip {
 					row2 = startRow + 1;
 					row3 = startRow + 2;
 
+					boolean thereIsAShipOnStart = this.theGrid.isThereAShip(startRow, startSquare);
+					boolean thereIsAShipOnRow2 = this.theGrid.isThereAShip(row2, startSquare);
+					boolean thereIsAShipOnRow3 = this.theGrid.isThereAShip(row3, startSquare);
+
+					while (thereIsAShipOnStart == true || thereIsAShipOnRow2 == true || thereIsAShipOnRow3 == true) {
+						startSquare = RandomNumGenerator();
+						startRow = RandomNumGenerator();
+					}
+
 					this.theGrid.addShipToGrid(ship3, startRow, startSquare);
 					this.theGrid.addShipToGrid(ship3, row2, startSquare);
 					this.theGrid.addShipToGrid(ship3, row3, startSquare);
+
+					textForDebug = textForDebug + "\nSubmarine" + "(" + startRow + "," + startSquare + ")" + "," + "(" + row2 + ","
+							+ startSquare + ")" + ",(" + row3 + "," + startSquare + ")";					
 				}
 			}
 			if (ifVerticalRow == false) {// if not vertical, the ship is alligned horizontally
@@ -315,9 +406,22 @@ public class BattleShip {
 					square2 = startSquare - 1;
 					square3 = startSquare - 2;
 
+					boolean thereIsAShipOnStart = this.theGrid.isThereAShip(startRow, startSquare);
+					boolean thereIsAShipOnSquare2 = this.theGrid.isThereAShip(startRow, square2);
+					boolean thereIsAShipOnSquare3 = this.theGrid.isThereAShip(startRow, square3);
+
+					while (thereIsAShipOnStart == true || thereIsAShipOnSquare2 == true
+					|| thereIsAShipOnSquare3 == true) {
+						startSquare = RandomNumGenerator();
+						startRow = RandomNumGenerator();
+					}
+
 					this.theGrid.addShipToGrid(ship3, startRow, startSquare);
 					this.theGrid.addShipToGrid(ship3, startRow, square2);
 					this.theGrid.addShipToGrid(ship3, startRow, square3);
+
+					textForDebug = textForDebug + "\nSubmarine" + "(" + startRow + "," + startSquare + ")" + "," + "(" + startRow + ","
+							+ square2 + ")" + ",(" + startRow + "," + square3 + ")";					
 				}
 
 				if (horizontalIfAllignedLeft == false) {// the ship is alligned going right
@@ -331,9 +435,22 @@ public class BattleShip {
 					square2 = startSquare + 1;
 					square3 = startSquare + 2;
 
+					boolean thereIsAShipOnStart = this.theGrid.isThereAShip(startRow, startSquare);
+					boolean thereIsAShipOnSquare2 = this.theGrid.isThereAShip(startRow, square2);
+					boolean thereIsAShipOnSquare3 = this.theGrid.isThereAShip(startRow, square3);
+
+					while (thereIsAShipOnStart == true || thereIsAShipOnSquare2 == true
+					|| thereIsAShipOnSquare3 == true) {
+						startSquare = RandomNumGenerator();
+						startRow = RandomNumGenerator();
+					}
+
 					this.theGrid.addShipToGrid(ship3, startRow, startSquare);
 					this.theGrid.addShipToGrid(ship3, startRow, square2);
 					this.theGrid.addShipToGrid(ship3, startRow, square3);
+
+					textForDebug = textForDebug + "\nSubmarine" + "(" + startRow + "," + startSquare + ")" + "," + "(" + startRow + ","
+							+ square2 + ")" + ",(" + startRow + "," + square3 + ")";					
 				}
 			}
 		} // end of for loop
@@ -342,8 +459,7 @@ public class BattleShip {
 	public void destroyerPlacerLogic() {// the logic to place Destroyer to the grid
 		Ship ship4 = new Ship(2, 8, "Destroyer");
 		int startRow, row2, startSquare, square2;
-		int destroyerLength = 2;
-		String output;
+		int destroyerLength = 2;		
 
 		for (int i = 0; i < 1; i++) {
 			boolean ifVerticalRow = ifVerticalRow();
@@ -361,12 +477,20 @@ public class BattleShip {
 					}
 					row2 = startRow - 1;
 
-					output = "ship4" + "(" + startRow + "," + startSquare + ")" + "ship4" + "(" + row2 + ","
-							+ startSquare + ")";
-					JOptionPane.showMessageDialog(null, output);
+					boolean thereIsAShipOnStart = this.theGrid.isThereAShip(startRow, startSquare);
+					boolean thereIsAShipOnRow2 = this.theGrid.isThereAShip(row2, startSquare);
+
+					while (thereIsAShipOnStart == true || thereIsAShipOnRow2 == true) {
+						startSquare = RandomNumGenerator();
+						startRow = RandomNumGenerator();
+					}
 
 					this.theGrid.addShipToGrid(ship4, startRow, startSquare);
 					this.theGrid.addShipToGrid(ship4, row2, startSquare);
+
+					textForDebug = textForDebug + "\nDestroyer" + "(" + startRow + "," + startSquare + ")" + "," + "("
+							+ row2 + ","+ startSquare + ")";
+
 				}
 
 				if (verticalAllignedUp == false) {// the ship is alligned going down
@@ -379,12 +503,18 @@ public class BattleShip {
 					}
 					row2 = startRow + 1;
 
-					output = "ship4" + "(" + startRow + "," + startSquare + ")" + "ship4" + "(" + row2 + ","
-							+ startSquare + ")";
-					JOptionPane.showMessageDialog(null, output);
+					boolean thereIsAShipOnStart = this.theGrid.isThereAShip(startRow, startSquare);
+					boolean thereIsAShipOnRow2 = this.theGrid.isThereAShip(row2, startSquare);
+
+					while (thereIsAShipOnStart == true || thereIsAShipOnRow2 == true) {
+						startSquare = RandomNumGenerator();
+						startRow = RandomNumGenerator();
+					}
 
 					this.theGrid.addShipToGrid(ship4, startRow, startSquare);
 					this.theGrid.addShipToGrid(ship4, row2, startSquare);
+					textForDebug = textForDebug + "\nDestroyer" + "(" + startRow + "," + startSquare + ")" + "," + "("
+							+ row2 + "," + startSquare + ")";
 				}
 			}
 			if (ifVerticalRow == false) {// if not vertical, the ship is alligned horizontally
@@ -400,12 +530,19 @@ public class BattleShip {
 					}
 					square2 = startSquare - 1;
 
-					output = "ship4" + "(" + startRow + "," + startSquare + ")" + "ship4" + "(" + startRow + ","
-							+ square2 + ")";
-					JOptionPane.showMessageDialog(null, output);
+					boolean thereIsAShipOnStart = this.theGrid.isThereAShip(startRow, startSquare);
+					boolean thereIsAShipOnSquare2 = this.theGrid.isThereAShip(startRow, square2);
+
+					while (thereIsAShipOnStart == true || thereIsAShipOnSquare2 == true) {
+						startSquare = RandomNumGenerator();
+						startRow = RandomNumGenerator();
+					}
 
 					this.theGrid.addShipToGrid(ship4, startRow, startSquare);
 					this.theGrid.addShipToGrid(ship4, startRow, square2);
+					textForDebug = textForDebug + "\nDestroyer" + "(" + startRow + "," + startSquare + ")" + "," + "("
+							+ startRow + ","
+							+ square2 + ")";
 				}
 
 				if (horizontalIfAllignedLeft == false) {// the ship is alligned going right
@@ -418,12 +555,18 @@ public class BattleShip {
 					}
 					square2 = startSquare + 1;
 
-					output = "ship4" + "(" + startRow + "," + startSquare + ")" + "ship4" + "(" + startRow + ","
-							+ square2 + ")";
-					JOptionPane.showMessageDialog(null, output);
+					boolean thereIsAShipOnStart = this.theGrid.isThereAShip(startRow, startSquare);
+					boolean thereIsAShipOnSquare2 = this.theGrid.isThereAShip(startRow, square2);
+
+					while (thereIsAShipOnStart == true || thereIsAShipOnSquare2 == true) {
+						startSquare = RandomNumGenerator();
+						startRow = RandomNumGenerator();
+					}
 
 					this.theGrid.addShipToGrid(ship4, startRow, startSquare);
 					this.theGrid.addShipToGrid(ship4, startRow, square2);
+					textForDebug = textForDebug + "\nDestroyer" + "(" + startRow + "," + startSquare + ")" + "," + "(" + startRow + ","
+							+ square2 + ")";					
 				}
 			}
 		} // end of for loop
@@ -431,7 +574,7 @@ public class BattleShip {
 
 	public void patrolBoatPlacerLogic() {// the logic to place Patrol boat to the grid
 		Ship ship5 = new Ship(1, 10, "Patrol boat");
-		int startRow, startSquare;
+		int startRow, startSquare;		
 
 		for (int i = 0; i < 1; i++) {
 			boolean ifVerticalRow = ifVerticalRow();
@@ -443,14 +586,31 @@ public class BattleShip {
 					startSquare = RandomNumGenerator();
 					startRow = RandomNumGenerator();
 
+					boolean thereIsAShipOnStart = this.theGrid.isThereAShip(startRow, startSquare);
+
+					while (thereIsAShipOnStart == true) {
+						startSquare = RandomNumGenerator();
+						startRow = RandomNumGenerator();
+					}
+
 					this.theGrid.addShipToGrid(ship5, startRow, startSquare);
+					textForDebug = textForDebug + "\nPatrol boat:" + "(" + startRow + "," + startSquare + ")";
+
 				}
 
 				if (verticalAllignedUp == false) {// the ship is alligned going down
 					startSquare = RandomNumGenerator();
 					startRow = RandomNumGenerator();
 
+					boolean thereIsAShipOnStart = this.theGrid.isThereAShip(startRow, startSquare);
+
+					while (thereIsAShipOnStart == true) {
+						startSquare = RandomNumGenerator();
+						startRow = RandomNumGenerator();
+					}
+
 					this.theGrid.addShipToGrid(ship5, startRow, startSquare);
+					textForDebug = textForDebug + "\nPatrol boat:" + "(" + startRow + "," + startSquare + ")";
 				}
 			}
 			if (ifVerticalRow == false) {// if not vertical, the ship is alligned horizontally
@@ -460,21 +620,43 @@ public class BattleShip {
 					startSquare = RandomNumGenerator();
 					startRow = RandomNumGenerator();
 
+					boolean thereIsAShipOnStart = this.theGrid.isThereAShip(startRow, startSquare);
+
+					while (thereIsAShipOnStart == true) {
+						startSquare = RandomNumGenerator();
+						startRow = RandomNumGenerator();
+					}
+
 					this.theGrid.addShipToGrid(ship5, startRow, startSquare);
+					textForDebug = textForDebug + "\nPatrol boat:" + "(" + startRow + "," + startSquare + ")";
+
 				}
 
 				if (horizontalIfAllignedLeft == false) {// the ship is alligned going right
 					startSquare = RandomNumGenerator();
 					startRow = RandomNumGenerator();
 
+					boolean thereIsAShipOnStart = this.theGrid.isThereAShip(startRow, startSquare);
+
+					while (thereIsAShipOnStart == true) {
+						startSquare = RandomNumGenerator();
+						startRow = RandomNumGenerator();
+					}
+
 					this.theGrid.addShipToGrid(ship5, startRow, startSquare);
+					textForDebug = textForDebug + "\nPatrol boat:" + "(" + startRow + "," + startSquare + ")";
+
 				}
 			}
 		} // end of for loop
+
 	}// end of patrolBoatPlacerLogic method
 
 	public void battleshipPrinter() {
 		this.theGrid.printDetailsRow();
 	}
 
+	public void textForDebugPrinter(String textForDebug){		
+		System.out.println(textForDebug);
+	}
 }// end of class

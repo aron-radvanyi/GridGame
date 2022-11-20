@@ -1,8 +1,8 @@
 public class DemoBattleShip {
     public static void main(String[] args) {
-        BattleShip bs = new BattleShip();
+        BattleShip game = new BattleShip();
 		
-		bs.play();
+		game.shipPlacer();
         
         
 

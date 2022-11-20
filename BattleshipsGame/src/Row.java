@@ -17,7 +17,7 @@ public class Row {
         setPosition(position);
     }
 
-    //getter and setters
+    //getters and setters
     public void setPosition(int position){
         this.position = position;        
     }
