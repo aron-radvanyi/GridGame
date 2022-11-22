@@ -10,18 +10,10 @@ public class Play {
     public void mainPlay() {
         printWelcome();
 
-        boolean answer = choiceInputMode();
+        boolean playDebug = choiceInputMode();
 
-        // debug mode or not
-        if (answer == true) {
-            play.shipPlacer();
-            shootingOnShipsDebug();
-
-        } else {
-            play.shipPlacer();
-
-            shootingOnShips();
-        }
+        play.shipPlacer();
+        shootingOnShips(playDebug);
     }
 
     public void printWelcome() {
@@ -30,6 +22,7 @@ public class Play {
 
     }
 
+    //method to chose Normal/Debug mode
     public boolean choiceInputMode() {
         int answer = JOptionPane.showConfirmDialog(null,
                 "Would you like to play in debug mode?" + "\nPlease,choose yes/no.", null, JOptionPane.YES_NO_OPTION);
@@ -44,93 +37,53 @@ public class Play {
 
     }
 
-    public void shootingOnShips() {
+    public void shootingOnShips(boolean playDebug) {
         int row, square;
-        String rowAString, squareAString;
+        String rowAString, squareAString,itIsAHit,itsNotAHit,output;
         final int NUMBER_OF_SHOTS = 10;
         int minNumber = 0;
         int maxNumber = 10;
         int numberOfPoints = 0;
-        String itIsAHit, itsNotAHit;
-        String output;
+        String text = play.getTextForDebugPrinter();
         List whatShipsWereSinked = new ArrayList<>();
 
         for (int i = 0; i < NUMBER_OF_SHOTS; i++) {
 
+            if (playDebug) {
+                JOptionPane.showMessageDialog(null, text);
+            }
+
             rowAString = JOptionPane.showInputDialog("row you shoot at:");
             row = Integer.parseInt(rowAString);
-
-            while (row < minNumber || row > maxNumber) {
-                rowAString = JOptionPane.showInputDialog("row you shoot at:");
-                row = Integer.parseInt(rowAString);
-            }
-            squareAString = JOptionPane.showInputDialog("square you shoot at:");
-            square = Integer.parseInt(squareAString);
-
-            while (square < minNumber || square > maxNumber) {
-
-                squareAString = JOptionPane.showInputDialog("square you shoot at:");
-                square = Integer.parseInt(squareAString);
-            }
-
-            boolean hit = play.isThereAShipOnSquareOfThisGrid(row, square);
-
-            if (hit) {
-
-                int points = play.getPointsOfShip(row, square);
-                numberOfPoints = numberOfPoints + points;
-                String typeOfShip = play.getTypeOfShipOnGrid(row, square);
-
-                itIsAHit = "Nice, you hit a: " + typeOfShip;
-                JOptionPane.showMessageDialog(null, itIsAHit);
-
-                whatShipsWereSinked.add(i, typeOfShip);
-                // String
-                // whatShipsWereSinked[]={typeOfShip+typeOfShip+typeOfShip+typeOfShip+typeOfShip};
-
-                shipWreckingVertical(typeOfShip, row, square);
-                shipWreckingHorizontal(typeOfShip, row, square);
-
-                int sizeOfWhatShipsWereSinked = whatShipsWereSinked.size();
-                if (sizeOfWhatShipsWereSinked == 5) {
-                    String output2 = "\nGreat job, all ships were sinked!";
-                    JOptionPane.showMessageDialog(null, output2);
+            
+            /*while(true){
+                try{                    
+                    row = Integer.parseInt(rowAString);
                     break;
+                }catch(Error message){
+                    String errorMessage="This is not a number!";
+                    JOptionPane.showMessageDialog(null, message,errorMessage,2);                                        
                 }
-            } else {
-                itsNotAHit = "Miss!" + "\n..or maybe you sinked the ship already? :)";
-                JOptionPane.showMessageDialog(null, itsNotAHit);
-
             }
-        } // end of for loop
-
-        output = "GAME OVER" + "\nYour score: " + numberOfPoints;
-
-        JOptionPane.showMessageDialog(null, output);
-
-    }
-
-    public void shootingOnShipsDebug() {
-        int row, square;
-        String rowAString, squareAString,itIsAHit, itsNotAHit,output,text= play.getTextForDebugPrinter();;
-        final int NUMBER_OF_SHOTS = 10;
-        int minNumber = 0;
-        int maxNumber = 10;
-        int numberOfPoints = 0;        
-        List whatShipsWereSinked = new ArrayList<>();
-
-        for (int i = 0; i < NUMBER_OF_SHOTS; i++) {
-
-            JOptionPane.showMessageDialog(null, text);
-            rowAString = JOptionPane.showInputDialog("row you shoot at:");
-            row = Integer.parseInt(rowAString);
+            rowAString = JOptionPane.showInputDialog("row you shoot at:");*/
 
             while (row < minNumber || row > maxNumber) {
                 rowAString = JOptionPane.showInputDialog("row you shoot at:");
-                row = Integer.parseInt(rowAString);
+                row = Integer.parseInt(rowAString);                
             }
+
             squareAString = JOptionPane.showInputDialog("square you shoot at:");
             square = Integer.parseInt(squareAString);
+
+            /*while(true){
+                try{                    
+                    square = Integer.parseInt(squareAString);
+                    break;
+                }catch(Error message){
+                    String errorMessage="This is not a number!";
+                    JOptionPane.showMessageDialog(null, message,errorMessage,2);                                       
+                }
+            }*/
 
             while (square < minNumber || square > maxNumber) {
 
