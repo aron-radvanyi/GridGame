@@ -76,6 +76,12 @@ public class Grid {
 		return temporaryShip;
 	}
 
+	/*public void removeShipFromGrid(int row, int square) {
+		Ship ship = getTheShip(row, square);
+		this.
+
+	}*/
+
 	public void addShipToGrid(Ship ship, int row, int square) {
 		for (Row temporaryRow : this.Rows) {
 			if (temporaryRow.getPosition() == row) {
@@ -84,6 +90,20 @@ public class Grid {
 					if (tempSquare.getPosition() == square) {
 						// found correct square
 						tempSquare.setTheShip(ship);
+					}
+				}
+			}
+		}
+	}// end of addShipToGrid
+
+	public void removeShipFromGrid(int row, int square) {
+		for (Row temporaryRow : this.Rows) {
+			if (temporaryRow.getPosition() == row) {
+				// found correct row
+				for (Square tempSquare : temporaryRow.getSquares()) {
+					if (tempSquare.getPosition() == square) {
+						// found correct square
+						tempSquare.removeShip(null);
 					}
 				}
 			}

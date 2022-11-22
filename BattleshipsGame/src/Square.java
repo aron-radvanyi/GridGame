@@ -19,6 +19,9 @@ public class Square {
    public void setTheShip(Ship theShip) {
       this.theShip = theShip;
    }
+   public void removeShip(Ship theShip){
+      this.theShip=null;
+   }
 
    public Ship getShip(){
       return this.theShip;

@@ -1,6 +1,5 @@
 import java.util.Random;
 import javax.swing.JOptionPane;
-import java.util.ArrayList;
 
 public class BattleShip {
 
@@ -15,12 +14,6 @@ public class BattleShip {
 		submarinePlacerLogic();
 		destroyerPlacerLogic();
 		patrolBoatPlacerLogic();
-
-	}
-
-	public void debugMode() {
-		shipPlacer();
-		textForDebugPrinter(textForDebug);
 
 	}
 
@@ -676,6 +669,11 @@ public class BattleShip {
 		JOptionPane.showMessageDialog(null, output);
 	}
 
+	public String getTextForDebugPrinter(){
+		String text = this.textForDebug;
+		return text;
+	}
+
 	public boolean isThereAShipOnSquareOfThisGrid(int row, int square) {
 		boolean isThereAShipOnSquare = this.theGrid.isThereAShip(row, square);
 
@@ -690,19 +688,10 @@ public class BattleShip {
 	public String getTypeOfShipOnGrid(int row, int square) {
 		String getTypeOfShipOnGrid = this.theGrid.getShipType(row, square);
 		return getTypeOfShipOnGrid;
-	}
+	}	
 
-	public Ship getTheShipOnGrid(int row, int square) {
-
-		Ship ship = this.theGrid.getTheShip(row, square);
-		return ship;
-
-	}
-
-	public void removeShipFromGrid(int row, int square) {
-		Ship ship = getTheShipOnGrid(row, square);
-		this.theGrid.remove(ship);
-
+	public void shipWrecker(int row, int square) {
+		this.theGrid.removeShipFromGrid(row, square);
 	}
 
 }// end of class
