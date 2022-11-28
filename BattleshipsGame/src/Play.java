@@ -1,6 +1,5 @@
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.io.*;
 
 import javax.swing.JOptionPane;
 
@@ -10,19 +9,26 @@ public class Play {
 
     public void mainPlay() {
         boolean playDebug;
+        String playerName;
 
         printWelcome();
+        playerName = askPlayerName();
 
         playDebug = choiceInputMode();
 
         play.shipPlacer();
-        shootingOnShips(playDebug);
+        shootingOnShips(playDebug, playerName);
     }
 
     // method to print welcome message
     public void printWelcome() {
         String output = "Welcome in the game!" + "\n " + "\nplease, press OK to continue!";
         JOptionPane.showMessageDialog(null, output);
+    }
+
+    public String askPlayerName() {
+        String playerName = JOptionPane.showInputDialog("Please, type in your playername!");
+        return playerName;
     }
 
     // method to chose Normal/Debug mode
@@ -41,62 +47,66 @@ public class Play {
 
     }
 
-    //method to facilitate the shooting on the ships
-    public void shootingOnShips(boolean playDebug) {
-        int row, square,points,sizeOfWhatShipsWereSinked;
-        String rowAString, squareAString, itIsAHit, itsNotAHit, output,typeOfShip;
+    // method to facilitate the shooting on the ships
+    public void shootingOnShips(boolean playDebug, String playerName) {
+        int row, square, points, sizeOfWhatShipsWereSinked;
+        String rowAString, squareAString, itIsAHit, itsNotAHit, output, typeOfShip;
         boolean hit;
         final int NUMBER_OF_SHOTS = 10;
         int minNumber = 0;
         int maxNumber = 10;
         int numberOfPoints = 0;
-        String text = play.getTextForDebugPrinter();
+        String textDebug = play.getTextForDebugPrinter();
         List<String> whatShipsWereSinked = new ArrayList<String>();
         int numOfShips = 5;
+
         // List<Shot> theShots = new ArrayList<Shot>();
 
-        //main loop for shooting
+        // main loop for shooting
         for (int i = 0; i < NUMBER_OF_SHOTS; i++) {
 
             // if player wants to play debug, the text for debug is shown for each iteration
             if (playDebug) {
-                JOptionPane.showMessageDialog(null, text);
+                JOptionPane.showMessageDialog(null, textDebug);
             }
 
-            //to validate the palyer does not type in else than int
+            // to validate the palyer does not type in else than int
             while (true) {
                 try {
-                    rowAString = JOptionPane.showInputDialog("row you shoot at:");
+                    rowAString = JOptionPane.showInputDialog("Captain " + playerName + " which row you shoot at?");
                     row = Integer.parseInt(rowAString);
                     break;
                 } catch (Exception ex) {
-                    String errorMessage = "This is not a number!";
+                    String errorMessage = "Captain " + playerName + " This is not a number!";
                     JOptionPane.showMessageDialog(null, errorMessage);
                 }
             }
 
-            //to validate the int provided is not higher/lower than it is possible
+            // to validate the int provided is not higher/lower than it is possible
             while (row < minNumber || row > maxNumber) {
-                rowAString = JOptionPane.showInputDialog("row you shoot at:");
+                rowAString = JOptionPane.showInputDialog(
+                        "Captain " + playerName + " this number is not between 1-10" + " \nWhich row you shoot at?");
                 row = Integer.parseInt(rowAString);
             }
 
-            //to validate the palyer does not type in else than int
+            // to validate the palyer does not type in else than int
             while (true) {
                 try {
-                    squareAString = JOptionPane.showInputDialog("square you shoot at:");
+                    squareAString = JOptionPane
+                            .showInputDialog("Captain " + playerName + " which square you shoot at?");
                     square = Integer.parseInt(squareAString);
                     break;
                 } catch (Exception ex) {
-                    String errorMessage = "This is not a number!";
+                    String errorMessage = "Captain " + playerName + " this is not a number!";
                     JOptionPane.showMessageDialog(null, errorMessage);
                 }
             }
 
-            //to validate the int provided is not higher/lower than it is possible
+            // to validate the int provided is not higher/lower than it is possible
             while (square < minNumber || square > maxNumber) {
 
-                squareAString = JOptionPane.showInputDialog("square you shoot at:");
+                squareAString = JOptionPane.showInputDialog(
+                        "Captain " + playerName + " this number is not between 1-10" + " \nWhich square you shoot at?");
                 square = Integer.parseInt(squareAString);
             }
 
@@ -113,16 +123,20 @@ public class Play {
             // arrayIntShots.add(row,square);
             // theShots.add(i, shot);
 
-           /*  boolean didPlayerShotHereAlready = play.wasShotSquare(row, square);
-
-            if (didPlayerShotHereAlready == true) {
-                rowAString = JOptionPane.showInputDialog("You already shot on that row!" + "\n row you shoot at:");
-                row = Integer.parseInt(rowAString);
-
-                squareAString = JOptionPane
-                        .showInputDialog("You already shot on that square!" + "\n square you shoot at:");
-                square = Integer.parseInt(squareAString);
-            }*/
+            /*
+             * boolean didPlayerShotHereAlready = play.wasShotSquare(row, square);
+             * 
+             * if (didPlayerShotHereAlready == true) {
+             * rowAString = JOptionPane.showInputDialog("You already shot on that row!" +
+             * "\n row you shoot at:");
+             * row = Integer.parseInt(rowAString);
+             * 
+             * squareAString = JOptionPane
+             * .showInputDialog("You already shot on that square!" +
+             * "\n square you shoot at:");
+             * square = Integer.parseInt(squareAString);
+             * }
+             */
 
             /*
              * Shot shot = new Shot(numberOFShots);
@@ -139,55 +153,82 @@ public class Play {
              * }
              */
 
-            // to check if it's a hit, isThereAShipOnSquareOfThisGrid(row, square) returns true if there is a ship
+            // to check if it's a hit, isThereAShipOnSquareOfThisGrid(row, square) returns
+            // true if there is a ship
             hit = play.isThereAShipOnSquareOfThisGrid(row, square);
 
             if (hit) {
 
-                //returns the points for the ship on that location
+                // returns the points for the ship on that location
                 points = play.getPointsOfShip(row, square);
                 numberOfPoints = numberOfPoints + points;
 
-                //returns the type of ship hit as string
+                // returns the type of ship hit as string
                 typeOfShip = play.getTypeOfShipOnGrid(row, square);
 
-                itIsAHit = "Nice, you hit a: " + typeOfShip;
+                itIsAHit = "Captain " + playerName + " nice job, you hit a: " + typeOfShip;
                 JOptionPane.showMessageDialog(null, itIsAHit);
 
-                //adds the string typeOfShip to the arraylist
+                // adds the string typeOfShip to the arraylist
                 whatShipsWereSinked.add(typeOfShip);
-                /*
-                 * play.gtterShip(row, square);
-                 * play.shipRemoverTest(null);
-                 */
-
+                
                 // to destroy the whole ship which was hit
                 shipWreckingVertical(typeOfShip, row, square);
                 shipWreckingHorizontal(typeOfShip, row, square);
-                // play.preventerShootingThereTwice(row, square);
-                
-                //breaks the loop if all the 5 ships were sinked
+
+                // breaks the loop if all the 5 ships were sinked
                 sizeOfWhatShipsWereSinked = whatShipsWereSinked.size();
                 if (sizeOfWhatShipsWereSinked == numOfShips) {
-                    String output2 = "\nGreat job, all ships were sinked!";
+                    String output2 = "Captain " + playerName + "\nGreat job, all ships were sinked!";
                     JOptionPane.showMessageDialog(null, output2);
                     break;
                 }
             } else {
-                itsNotAHit = "Miss!" + "\n..or maybe you sinked the ship already? :)";
+                itsNotAHit = "Captain " + playerName + " You Missed!" + "\n..or maybe you sinked the ship already? :)";
                 JOptionPane.showMessageDialog(null, itsNotAHit);
 
             }
-            // to prevent shooting on teh same spot twice
         } // end of for loop
 
-        output = "GAME OVER" + "\nYour score: " + numberOfPoints;
+        output = "GAME OVER" + "\nCaptain " + playerName + " Your score is: " + numberOfPoints;
 
         JOptionPane.showMessageDialog(null, output);
 
+        // calls the scoreboard in
+        scoreBoardMaker(numberOfPoints, playerName);
+
     }
 
-    //removes the ship from the grid on the locations it can possibly be if vertically alligned
+    // to create the high score board
+    public void scoreBoardMaker(int numberOfPoints, String playerName) {
+        Map<Integer, String> scoreBoard = new TreeMap<Integer, String>(Collections.reverseOrder());
+
+        scoreBoard.put(numberOfPoints, playerName);
+        for (Map.Entry<Integer, String> entry : scoreBoard.entrySet()) {
+            String scoreBoardTxt = "High score board: " + "\n" + "\npoints: " + entry.getKey() + " player name: "
+                    + entry.getValue();
+            String scoreBoardtxtForData = scoreBoardTxt;
+            scoreBoardWriter(scoreBoardtxtForData);
+        }
+    }
+
+    // to write the high score board int oa local txt file
+    public void scoreBoardWriter(String scoreBoardtxtForData) {
+        try {
+            FileWriter file = new FileWriter("scoreBoardtxtForData");
+            BufferedWriter output = new BufferedWriter(file);
+
+            output.write(scoreBoardtxtForData);
+            output.close();
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+    }
+
+    
+
+    // removes the ship from the grid on the locations it can possibly be if
+    // vertically alligned
     public void shipWreckingVertical(String typeofTheShipVert, int row, int square) {
         int firstRowUp, secRowUp, thirdRowUp, fourthRowUp;
         int firstRowDown, secRowDown, thirdRowDown, fourthRowDown;
@@ -198,9 +239,10 @@ public class Play {
         firstRowUp = row - 1;
         isThereAShip = play.isThereAShipOnSquareOfThisGrid(firstRowUp, square);
 
-        //if there is a ship checks if that ship is the same ship already hit and removes that ship from the grid
+        // if there is a ship checks if that ship is the same ship already hit and
+        // removes that ship from the grid
         if (isThereAShip) {
-             getshipType = play.getTypeOfShipOnGrid(firstRowUp, square);
+            getshipType = play.getTypeOfShipOnGrid(firstRowUp, square);
             if (getshipType == typeofTheShipVert) {
                 play.shipWrecker(firstRowUp, square);
             }
@@ -219,7 +261,7 @@ public class Play {
         thirdRowUp = row - 3;
         isThereAShip = play.isThereAShipOnSquareOfThisGrid(thirdRowUp, square);
         if (isThereAShip) {
-             getshipType = play.getTypeOfShipOnGrid(thirdRowUp, square);
+            getshipType = play.getTypeOfShipOnGrid(thirdRowUp, square);
             if (getshipType == typeofTheShipVert) {
                 play.shipWrecker(thirdRowUp, square);
             }
@@ -228,7 +270,7 @@ public class Play {
         fourthRowUp = row - 4;
         isThereAShip = play.isThereAShipOnSquareOfThisGrid(fourthRowUp, square);
         if (isThereAShip) {
-             getshipType = play.getTypeOfShipOnGrid(fourthRowUp, square);
+            getshipType = play.getTypeOfShipOnGrid(fourthRowUp, square);
             if (getshipType == typeofTheShipVert) {
                 play.shipWrecker(fourthRowUp, square);
             }
@@ -237,7 +279,7 @@ public class Play {
         firstRowDown = row + 1;
         isThereAShip = play.isThereAShipOnSquareOfThisGrid(firstRowDown, square);
         if (isThereAShip) {
-             getshipType = play.getTypeOfShipOnGrid(firstRowDown, square);
+            getshipType = play.getTypeOfShipOnGrid(firstRowDown, square);
             if (getshipType == typeofTheShipVert) {
                 play.shipWrecker(firstRowDown, square);
             }
@@ -246,7 +288,7 @@ public class Play {
         secRowDown = row + 2;
         isThereAShip = play.isThereAShipOnSquareOfThisGrid(secRowDown, square);
         if (isThereAShip) {
-             getshipType = play.getTypeOfShipOnGrid(secRowDown, square);
+            getshipType = play.getTypeOfShipOnGrid(secRowDown, square);
             if (getshipType == typeofTheShipVert) {
                 play.shipWrecker(secRowDown, square);
             }
@@ -255,7 +297,7 @@ public class Play {
         thirdRowDown = row + 3;
         isThereAShip = play.isThereAShipOnSquareOfThisGrid(thirdRowDown, square);
         if (isThereAShip) {
-             getshipType = play.getTypeOfShipOnGrid(thirdRowDown, square);
+            getshipType = play.getTypeOfShipOnGrid(thirdRowDown, square);
             if (getshipType == typeofTheShipVert) {
                 play.shipWrecker(thirdRowDown, square);
             }
@@ -264,14 +306,15 @@ public class Play {
         fourthRowDown = row + 4;
         isThereAShip = play.isThereAShipOnSquareOfThisGrid(fourthRowDown, square);
         if (isThereAShip) {
-             getshipType = play.getTypeOfShipOnGrid(fourthRowDown, square);
+            getshipType = play.getTypeOfShipOnGrid(fourthRowDown, square);
             if (getshipType == typeofTheShipVert) {
                 play.shipWrecker(fourthRowDown, square);
             }
         }
     }
 
-    //removes the ship from the grid on the locations it can possibly be if horizontally alligned
+    // removes the ship from the grid on the locations it can possibly be if
+    // horizontally alligned
     public void shipWreckingHorizontal(String typeofTheShipHor, int row, int square) {
         int firstSquareLeft, secSquareLeft, thirdSquareLeft, fourthSquareLeft;
         int firstSquareRight, secSquareRight, thirdSquareRight, fourthSquareRight;
@@ -281,11 +324,12 @@ public class Play {
         play.shipWrecker(row, square);
 
         firstSquareLeft = square - 1;
-         isThereAShip = play.isThereAShipOnSquareOfThisGrid(row, firstSquareLeft);
+        isThereAShip = play.isThereAShipOnSquareOfThisGrid(row, firstSquareLeft);
 
-         //if there is a ship checks if that ship is the same ship already hit and removes that ship from the grid
+        // if there is a ship checks if that ship is the same ship already hit and
+        // removes that ship from the grid
         if (isThereAShip) {
-             getshipType = play.getTypeOfShipOnGrid(row, firstSquareLeft);
+            getshipType = play.getTypeOfShipOnGrid(row, firstSquareLeft);
             if (getshipType == typeofTheShipHor) {
                 play.shipWrecker(row, firstSquareLeft);
             }
@@ -295,7 +339,7 @@ public class Play {
         isThereAShip = play.isThereAShipOnSquareOfThisGrid(row, secSquareLeft);
 
         if (isThereAShip) {
-             getshipType = play.getTypeOfShipOnGrid(row, secSquareLeft);
+            getshipType = play.getTypeOfShipOnGrid(row, secSquareLeft);
             if (getshipType == typeofTheShipHor) {
                 play.shipWrecker(row, secSquareLeft);
             }
@@ -305,7 +349,7 @@ public class Play {
         isThereAShip = play.isThereAShipOnSquareOfThisGrid(row, thirdSquareLeft);
 
         if (isThereAShip) {
-             getshipType = play.getTypeOfShipOnGrid(row, thirdSquareLeft);
+            getshipType = play.getTypeOfShipOnGrid(row, thirdSquareLeft);
             if (getshipType == typeofTheShipHor) {
                 play.shipWrecker(row, thirdSquareLeft);
             }
@@ -315,7 +359,7 @@ public class Play {
         isThereAShip = play.isThereAShipOnSquareOfThisGrid(row, fourthSquareLeft);
 
         if (isThereAShip) {
-             getshipType = play.getTypeOfShipOnGrid(row, fourthSquareLeft);
+            getshipType = play.getTypeOfShipOnGrid(row, fourthSquareLeft);
             if (getshipType == typeofTheShipHor) {
                 play.shipWrecker(row, fourthSquareLeft);
             }
@@ -325,7 +369,7 @@ public class Play {
         isThereAShip = play.isThereAShipOnSquareOfThisGrid(row, firstSquareRight);
 
         if (isThereAShip) {
-             getshipType = play.getTypeOfShipOnGrid(row, firstSquareRight);
+            getshipType = play.getTypeOfShipOnGrid(row, firstSquareRight);
             if (getshipType == typeofTheShipHor) {
                 play.shipWrecker(row, firstSquareRight);
             }
@@ -335,7 +379,7 @@ public class Play {
         isThereAShip = play.isThereAShipOnSquareOfThisGrid(row, secSquareRight);
 
         if (isThereAShip) {
-             getshipType = play.getTypeOfShipOnGrid(row, secSquareRight);
+            getshipType = play.getTypeOfShipOnGrid(row, secSquareRight);
             if (getshipType == typeofTheShipHor) {
                 play.shipWrecker(row, secSquareRight);
             }
@@ -345,7 +389,7 @@ public class Play {
         isThereAShip = play.isThereAShipOnSquareOfThisGrid(row, thirdSquareRight);
 
         if (isThereAShip) {
-             getshipType = play.getTypeOfShipOnGrid(row, thirdSquareRight);
+            getshipType = play.getTypeOfShipOnGrid(row, thirdSquareRight);
             if (getshipType == typeofTheShipHor) {
                 play.shipWrecker(row, thirdSquareRight);
             }
@@ -355,7 +399,7 @@ public class Play {
         isThereAShip = play.isThereAShipOnSquareOfThisGrid(row, fourthSquareRight);
 
         if (isThereAShip) {
-             getshipType = play.getTypeOfShipOnGrid(row, fourthSquareRight);
+            getshipType = play.getTypeOfShipOnGrid(row, fourthSquareRight);
             if (getshipType == typeofTheShipHor) {
                 play.shipWrecker(row, fourthSquareRight);
             }

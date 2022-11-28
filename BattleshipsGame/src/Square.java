@@ -2,7 +2,6 @@ public class Square {
 
    private int position;
    private Ship theShip;
-   private Shot waShot;
 
    // contrsuctor
    public Square(int position) {
