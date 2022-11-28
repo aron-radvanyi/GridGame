@@ -6,4 +6,6 @@
 	</section>
 	<section name="FileSystemImportWizard">
 	</section>
+	<section name="ZipFileImportWizard">
+	</section>
 </section>

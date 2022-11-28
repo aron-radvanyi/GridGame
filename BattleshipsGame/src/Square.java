@@ -2,6 +2,7 @@ public class Square {
 
    private int position;
    private Ship theShip;
+   private Shot waShot;
 
    // contrsuctor
    public Square(int position) {
@@ -42,5 +43,15 @@ public class Square {
    public String getTypeOfShip(){
       return this.theShip.getType();
    }
+
+   public void setPositionToZero(){
+      this.position=0;
+   }
+
+   /*public boolean setWasShot(){
+      if (waShot==null){
+         return 
+      }
+   }*/
 
 }// end of class

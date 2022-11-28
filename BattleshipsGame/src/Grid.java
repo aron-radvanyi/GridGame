@@ -109,4 +109,27 @@ public class Grid {
 			}
 		}
 	}// end of addShipToGrid
+
+	/*public void removerTest (Ship ship){
+		this.Rows.remove(ship);
+	}*/
+
+	/*public boolean wasShot(int row, int square) {
+		for (Row temporaryRow : this.Rows) {
+			if (temporaryRow.getPosition() == row) {
+				// found correct row
+				for (Square tempSquare : temporaryRow.getSquares()) {
+					if (tempSquare.getPosition() == square) {
+						// found correct square
+						return tempSquare.setWasShot();
+					}
+				}
+			}
+		}
+		return false;
+	}*/
+
+	
+
+
 }// end of the class

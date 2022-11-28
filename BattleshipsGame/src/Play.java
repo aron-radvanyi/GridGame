@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +17,14 @@ public class Play {
         shootingOnShips(playDebug);
     }
 
+    // method to print welcome message
     public void printWelcome() {
         String output = "Welcome in the game!" + "\n " + "\nplease, press OK to continue!";
         JOptionPane.showMessageDialog(null, output);
 
     }
 
-    //method to chose Normal/Debug mode
+    // method to chose Normal/Debug mode
     public boolean choiceInputMode() {
         int answer = JOptionPane.showConfirmDialog(null,
                 "Would you like to play in debug mode?" + "\nPlease,choose yes/no.", null, JOptionPane.YES_NO_OPTION);
@@ -39,51 +41,49 @@ public class Play {
 
     public void shootingOnShips(boolean playDebug) {
         int row, square;
-        String rowAString, squareAString,itIsAHit,itsNotAHit,output;
+        String rowAString, squareAString, itIsAHit, itsNotAHit, output;
         final int NUMBER_OF_SHOTS = 10;
         int minNumber = 0;
         int maxNumber = 10;
         int numberOfPoints = 0;
         String text = play.getTextForDebugPrinter();
-        List whatShipsWereSinked = new ArrayList<>();
+        List<String> whatShipsWereSinked = new ArrayList<String>();
+        // List<Shot> theShots = new ArrayList<Shot>();
 
         for (int i = 0; i < NUMBER_OF_SHOTS; i++) {
+            int numberOFShots = 0;
 
+            // if player wants to play debug, the text for debug is shown
             if (playDebug) {
                 JOptionPane.showMessageDialog(null, text);
             }
 
-            rowAString = JOptionPane.showInputDialog("row you shoot at:");
-            row = Integer.parseInt(rowAString);
-            
-            /*while(true){
-                try{                    
+            while (true) {
+                try {
+                    rowAString = JOptionPane.showInputDialog("row you shoot at:");
                     row = Integer.parseInt(rowAString);
                     break;
-                }catch(Error message){
-                    String errorMessage="This is not a number!";
-                    JOptionPane.showMessageDialog(null, message,errorMessage,2);                                        
+                } catch (Exception ex) {
+                    String errorMessage = "This is not a number!";
+                    JOptionPane.showMessageDialog(null, errorMessage);
                 }
             }
-            rowAString = JOptionPane.showInputDialog("row you shoot at:");*/
 
             while (row < minNumber || row > maxNumber) {
                 rowAString = JOptionPane.showInputDialog("row you shoot at:");
-                row = Integer.parseInt(rowAString);                
+                row = Integer.parseInt(rowAString);
             }
 
-            squareAString = JOptionPane.showInputDialog("square you shoot at:");
-            square = Integer.parseInt(squareAString);
-
-            /*while(true){
-                try{                    
+            while (true) {
+                try {
+                    squareAString = JOptionPane.showInputDialog("square you shoot at:");
                     square = Integer.parseInt(squareAString);
                     break;
-                }catch(Error message){
-                    String errorMessage="This is not a number!";
-                    JOptionPane.showMessageDialog(null, message,errorMessage,2);                                       
+                } catch (Exception ex) {
+                    String errorMessage = "This is not a number!";
+                    JOptionPane.showMessageDialog(null, errorMessage);
                 }
-            }*/
+            }
 
             while (square < minNumber || square > maxNumber) {
 
@@ -91,6 +91,46 @@ public class Play {
                 square = Integer.parseInt(squareAString);
             }
 
+            // to prevent shooting on teh same spot twice
+            // created shot object and put it into an arraylist, determined if arraylist
+            // contains shot
+            // but prevented looping again
+
+            // List<Integer> arrayIntShots = new ArrayList<Integer>();
+            // theShots.add(1, shot);
+
+            // Shot shot = new Shot(numberOFShots);
+
+            // arrayIntShots.add(row,square);
+            // theShots.add(i, shot);
+
+           /*  boolean didPlayerShotHereAlready = play.wasShotSquare(row, square);
+
+            if (didPlayerShotHereAlready == true) {
+                rowAString = JOptionPane.showInputDialog("You already shot on that row!" + "\n row you shoot at:");
+                row = Integer.parseInt(rowAString);
+
+                squareAString = JOptionPane
+                        .showInputDialog("You already shot on that square!" + "\n square you shoot at:");
+                square = Integer.parseInt(squareAString);
+            }*/
+
+            /*
+             * Shot shot = new Shot(numberOFShots);
+             * theShots.add(shot);
+             * if(theShots.contains(shot)&&numberOFShots!=0){
+             * rowAString = JOptionPane.showInputDialog("You already shot on that row!"
+             * +"\n row you shoot at:");
+             * row = Integer.parseInt(rowAString);
+             * 
+             * squareAString =
+             * JOptionPane.showInputDialog("You already shot on that square!"
+             * +"\n square you shoot at:");
+             * square = Integer.parseInt(squareAString);
+             * }
+             */
+
+            // to check if it's a hit
             boolean hit = play.isThereAShipOnSquareOfThisGrid(row, square);
 
             if (hit) {
@@ -102,12 +142,16 @@ public class Play {
                 itIsAHit = "Nice, you hit a: " + typeOfShip;
                 JOptionPane.showMessageDialog(null, itIsAHit);
 
-                whatShipsWereSinked.add(i, typeOfShip);
-                // String
-                // whatShipsWereSinked[]={typeOfShip+typeOfShip+typeOfShip+typeOfShip+typeOfShip};
+                whatShipsWereSinked.add(typeOfShip);
+                /*
+                 * play.gtterShip(row, square);
+                 * play.shipRemoverTest(null);
+                 */
 
+                // to destroy the whole ship which was hit
                 shipWreckingVertical(typeOfShip, row, square);
                 shipWreckingHorizontal(typeOfShip, row, square);
+                // play.preventerShootingThereTwice(row, square);
 
                 int sizeOfWhatShipsWereSinked = whatShipsWereSinked.size();
                 if (sizeOfWhatShipsWereSinked == 5) {
@@ -120,6 +164,8 @@ public class Play {
                 JOptionPane.showMessageDialog(null, itsNotAHit);
 
             }
+
+            // to prevent shooting on teh same spot twice
         } // end of for loop
 
         output = "GAME OVER" + "\nYour score: " + numberOfPoints;
@@ -295,4 +341,5 @@ public class Play {
             }
         }
     }
+
 }// end of class

@@ -694,4 +694,15 @@ public class BattleShip {
 		this.theGrid.removeShipFromGrid(row, square);
 	}
 
+	/*public void shipRemoverTest(Ship ship){
+		this.theGrid.removerTest(ship);	}
+
+	}*/
+
+	/*public boolean wasShotSquare(int row, int square){
+		return this.theGrid.wasShot(row, square);
+	}*/
+
+	
+
 }// end of class
