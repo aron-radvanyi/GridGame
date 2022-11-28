@@ -516,7 +516,7 @@ public class BattleShip {
 					 thereIsAShipOnStart = this.theGrid.isThereAShip(startRow, startSquare);
 					 thereIsAShipOnRow2 = this.theGrid.isThereAShip(row2, startSquare);
 
-					 //to validate if tehre is a ship
+					 //to validate if there is a ship
 					while (thereIsAShipOnStart == true || thereIsAShipOnRow2 == true) {
 						startSquare = RandomNumGenerator();
 						startRow = RandomNumGenerator();

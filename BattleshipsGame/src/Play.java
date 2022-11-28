@@ -1,4 +1,4 @@
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,11 +52,11 @@ public class Play {
         int numberOfPoints = 0;
         String text = play.getTextForDebugPrinter();
         List<String> whatShipsWereSinked = new ArrayList<String>();
+        int numOfShips = 5;
         // List<Shot> theShots = new ArrayList<Shot>();
 
         //main loop for shooting
         for (int i = 0; i < NUMBER_OF_SHOTS; i++) {
-            int numberOFShots = 0;
 
             // if player wants to play debug, the text for debug is shown for each iteration
             if (playDebug) {
@@ -168,7 +168,7 @@ public class Play {
                 
                 //breaks the loop if all the 5 ships were sinked
                 sizeOfWhatShipsWereSinked = whatShipsWereSinked.size();
-                if (sizeOfWhatShipsWereSinked == 5) {
+                if (sizeOfWhatShipsWereSinked == numOfShips) {
                     String output2 = "\nGreat job, all ships were sinked!";
                     JOptionPane.showMessageDialog(null, output2);
                     break;
