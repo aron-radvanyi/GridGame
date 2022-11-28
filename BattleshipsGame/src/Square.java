@@ -42,11 +42,7 @@ public class Square {
 
    public String getTypeOfShip(){
       return this.theShip.getType();
-   }
-
-   public void setPositionToZero(){
-      this.position=0;
-   }
+   }  
 
    /*public boolean setWasShot(){
       if (waShot==null){

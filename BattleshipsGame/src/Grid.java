@@ -30,6 +30,7 @@ public class Grid {
 		return false;
 	}// end of the isThereAShip
 
+	//to get the points of the ship
 	public int shipPoints(int row, int square) {
 		for (Row temporaryRow : this.Rows) {
 			if (temporaryRow.getPosition() == row) {
@@ -45,6 +46,7 @@ public class Grid {
 		return 0;
 	}
 
+	//to get the type of the ship
 	public String getShipType(int row, int square) {
 		for (Row temporaryRow : this.Rows) {
 			if (temporaryRow.getPosition() == row) {
@@ -60,6 +62,7 @@ public class Grid {
 		return "";
 	}
 
+	//to get the ship on the grid
 	public Ship getTheShip(int row, int square) {
 		Ship temporaryShip = new Ship(row, square, null);
 		for (Row temporaryRow : this.Rows) {
@@ -75,13 +78,7 @@ public class Grid {
 		}
 		return temporaryShip;
 	}
-
-	/*public void removeShipFromGrid(int row, int square) {
-		Ship ship = getTheShip(row, square);
-		this.
-
-	}*/
-
+	//to add ship to teh grid
 	public void addShipToGrid(Ship ship, int row, int square) {
 		for (Row temporaryRow : this.Rows) {
 			if (temporaryRow.getPosition() == row) {
@@ -96,6 +93,7 @@ public class Grid {
 		}
 	}// end of addShipToGrid
 
+	//to remove the ship from the square 
 	public void removeShipFromGrid(int row, int square) {
 		for (Row temporaryRow : this.Rows) {
 			if (temporaryRow.getPosition() == row) {
@@ -108,11 +106,7 @@ public class Grid {
 				}
 			}
 		}
-	}// end of addShipToGrid
-
-	/*public void removerTest (Ship ship){
-		this.Rows.remove(ship);
-	}*/
+	}// end of addShipToGrid	
 
 	/*public boolean wasShot(int row, int square) {
 		for (Row temporaryRow : this.Rows) {
@@ -129,7 +123,7 @@ public class Grid {
 		return false;
 	}*/
 
-	
-
-
+	public int getGridLength(){
+		return this.NUM_OF_ROWS;
+	}
 }// end of the class

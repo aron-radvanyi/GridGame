@@ -4,7 +4,6 @@ public class Ship {
 	private String type;
 
 	// constructor
-
 	public Ship(int length, int points, String type) {
 		setLength(length);
 		setPoints(points);
@@ -12,7 +11,6 @@ public class Ship {
 	}
 
 	// getters and setters
-
 	public int getLength() {
 		return this.length;
 	}
