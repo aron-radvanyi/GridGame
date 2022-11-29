@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+//this is the class of the object Row which is an arraylist of 10 squares
 public class Row {
 
     private ArrayList<Square> Squares = new ArrayList<Square>();

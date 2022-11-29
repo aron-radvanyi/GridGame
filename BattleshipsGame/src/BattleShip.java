@@ -1,6 +1,7 @@
 import java.util.Random;
 import javax.swing.JOptionPane;
 
+//this class contains the interactions with the grid and the ship placing methods 
 public class BattleShip {
 
 	private Grid theGrid = new Grid();
@@ -743,18 +744,5 @@ public class BattleShip {
 	public void shipWrecker(int row, int square) {
 		this.theGrid.removeShipFromGrid(row, square);
 	}
-
-	/*
-	 * public void shipRemoverTest(Ship ship){
-	 * this.theGrid.removerTest(ship); }
-	 * 
-	 * }
-	 */
-
-	/*
-	 * public boolean wasShotSquare(int row, int square){
-	 * return this.theGrid.wasShot(row, square);
-	 * }
-	 */
 
 }// end of class

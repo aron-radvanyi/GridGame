@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+//this class is for the object Grid and all related methods 
 public class Grid {
 
 	private ArrayList<Row> Rows = new ArrayList<Row>();
@@ -108,21 +108,7 @@ public class Grid {
 		}
 	}// end of addShipToGrid	
 
-	/*public boolean wasShot(int row, int square) {
-		for (Row temporaryRow : this.Rows) {
-			if (temporaryRow.getPosition() == row) {
-				// found correct row
-				for (Square tempSquare : temporaryRow.getSquares()) {
-					if (tempSquare.getPosition() == square) {
-						// found correct square
-						return tempSquare.setWasShot();
-					}
-				}
-			}
-		}
-		return false;
-	}*/
-
+	//to get the length of teh grid
 	public int getGridLength(){
 		return this.NUM_OF_ROWS;
 	}

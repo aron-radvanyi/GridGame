@@ -1,3 +1,4 @@
+//this is the class for the object square and all related methdos 
 public class Square {
 
    private int position;

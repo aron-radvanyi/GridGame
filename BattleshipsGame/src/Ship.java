@@ -1,3 +1,4 @@
+//this is the class for the object shiop and all its related methods
 public class Ship {
 	private int length;
 	private int points;

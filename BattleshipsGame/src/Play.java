@@ -1,8 +1,10 @@
 import java.util.*;
 import java.io.*;
+//import java.lang.*;
 
 import javax.swing.JOptionPane;
 
+//this class captures the interactions with the player
 public class Play {
 
     BattleShip play = new BattleShip();
@@ -44,7 +46,6 @@ public class Play {
             debugModeChosen = false;
         }
         return debugModeChosen;
-
     }
 
     // method to facilitate the shooting on the ships
@@ -60,7 +61,8 @@ public class Play {
         List<String> whatShipsWereSinked = new ArrayList<String>();
         int numOfShips = 5;
 
-        // List<Shot> theShots = new ArrayList<Shot>();
+        // ArrayList<Integer[]> theShotsDone = new ArrayList<Integer[]>();
+        // Integer[] coordinatesOfShots = new Integer[2];
 
         // main loop for shooting
         for (int i = 0; i < NUMBER_OF_SHOTS; i++) {
@@ -110,48 +112,8 @@ public class Play {
                 square = Integer.parseInt(squareAString);
             }
 
-            // to prevent shooting on teh same spot twice
-            // created shot object and put it into an arraylist, determined if arraylist
-            // contains shot
-            // but prevented looping again
-
-            // List<Integer> arrayIntShots = new ArrayList<Integer>();
-            // theShots.add(1, shot);
-
-            // Shot shot = new Shot(numberOFShots);
-
-            // arrayIntShots.add(row,square);
-            // theShots.add(i, shot);
-
-            /*
-             * boolean didPlayerShotHereAlready = play.wasShotSquare(row, square);
-             * 
-             * if (didPlayerShotHereAlready == true) {
-             * rowAString = JOptionPane.showInputDialog("You already shot on that row!" +
-             * "\n row you shoot at:");
-             * row = Integer.parseInt(rowAString);
-             * 
-             * squareAString = JOptionPane
-             * .showInputDialog("You already shot on that square!" +
-             * "\n square you shoot at:");
-             * square = Integer.parseInt(squareAString);
-             * }
-             */
-
-            /*
-             * Shot shot = new Shot(numberOFShots);
-             * theShots.add(shot);
-             * if(theShots.contains(shot)&&numberOFShots!=0){
-             * rowAString = JOptionPane.showInputDialog("You already shot on that row!"
-             * +"\n row you shoot at:");
-             * row = Integer.parseInt(rowAString);
-             * 
-             * squareAString =
-             * JOptionPane.showInputDialog("You already shot on that square!"
-             * +"\n square you shoot at:");
-             * square = Integer.parseInt(squareAString);
-             * }
-             */
+            // the plan to call the method in to avoid shooting on teh same spot
+            // notShootingOnSameSpot(int row, int square)
 
             // to check if it's a hit, isThereAShipOnSquareOfThisGrid(row, square) returns
             // true if there is a ship
@@ -171,7 +133,7 @@ public class Play {
 
                 // adds the string typeOfShip to the arraylist
                 whatShipsWereSinked.add(typeOfShip);
-                
+
                 // to destroy the whole ship which was hit
                 shipWreckingVertical(typeOfShip, row, square);
                 shipWreckingHorizontal(typeOfShip, row, square);
@@ -194,9 +156,8 @@ public class Play {
 
         JOptionPane.showMessageDialog(null, output);
 
-        // calls the scoreboard in
+        // calls the scoreboardmaker method in
         scoreBoardMaker(numberOfPoints, playerName);
-
     }
 
     // to create the high score board
@@ -212,6 +173,36 @@ public class Play {
         }
     }
 
+    // method planned to avoid shooting on the same spot
+    /*
+     * public void notShootingOnSameSpot(int row, int square){
+     * 
+     * //checking if the araylist contains the same array
+     * boolean didPlayerShootThere=theShotsDone.contains(coordinatesOfShots);
+     * 
+     * //adding that array to the arraylist
+     * coordinatesOfShots[0]=row;
+     * coordinatesOfShots[1]=square;
+     * 
+     * //adding the array of shots to the arraylist
+     * theShotsDone.add(coordinatesOfShots);
+     * 
+     * //looping again if it contains
+     * while(didPlayerShootThere==true){
+     * rowAString = JOptionPane.showInputDialog(
+     * "Captain " + playerName + " you shoot here already" +
+     * " \nWhich row you shoot at?");
+     * row = Integer.parseInt(rowAString);
+     * 
+     * squareAString = JOptionPane.showInputDialog(
+     * "Captain " + playerName + " you shoot here already" +
+     * " \nWhich square you shoot at?");
+     * square = Integer.parseInt(squareAString);
+     * }
+     * 
+     * }
+     */
+
     // to write the high score board int oa local txt file
     public void scoreBoardWriter(String scoreBoardtxtForData) {
         try {
@@ -224,8 +215,6 @@ public class Play {
             e.getStackTrace();
         }
     }
-
-    
 
     // removes the ship from the grid on the locations it can possibly be if
     // vertically alligned
